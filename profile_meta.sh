@@ -10,6 +10,7 @@ sudo -u tomcat7 ${PROFILER} start -f "/tmp/${DEST_FN}" ${TOMCAT_PID}
 for PID in ${PIDS[@]}; do
   URL="${BASE_URL}${PID}"
   echo ${URL}
+  curl -s ${URL}
 done
 sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" ${TOMCAT_PID}
 cp "/tmp/${DEST_FN}" "/var/www/profiling/${DEST_FN}"
