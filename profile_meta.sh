@@ -3,7 +3,7 @@
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/meta/"
 PROFILER="async-profiler/profiler.sh"
 TOMCAT_PID=$(sudo -u tomcat7 jps | grep "Bootstrap" | awk '{print $1}')
-PIDS=()
+PIDS=(00682b835f37f807d057e5ccf19f0a46 006831c87eca8c64344b8cb3db0a60fb 00683912f000d3c7007906fbfc4a1f9b 00684d2cd5da265e385a94d67e21d197 0068781d1c6eaf235a6e6d0d68181d3d)
 for PID in ${PIDS[@]}; do
   URL="${BASE_URL}${PID}"
   echo ${URL}
