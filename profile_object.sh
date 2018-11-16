@@ -13,6 +13,6 @@ cat ${PID_FILE} | while read PID; do
   echo ${URL}
   curl -s ${URL}
 done
-sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "getSystemMetadata" ${TOMCAT_PID}
+sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "getObject" ${TOMCAT_PID}
 echo "Done profiling jps id: ${TOMCAT_PID}"
 cp "/tmp/${DEST_FN}" "/var/www/profiling/${DEST_FN}"

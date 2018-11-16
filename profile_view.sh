@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SPATH=$(dirname ${0})
-DEST_FN="prof_object_100.svg"
+DEST_FN="prof_view_100.svg"
 PID_FILE="${SPATH}/iso_pangaea_pids.txt"
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/views/metacatui/"
 PROFILER="./profiler.sh"
@@ -13,6 +13,6 @@ cat ${PID_FILE} | while read PID; do
   echo ${URL}
   curl -s ${URL}
 done
-sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "getSystemMetadata" ${TOMCAT_PID}
+sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "views metacatui" ${TOMCAT_PID}
 echo "Done profiling jps id: ${TOMCAT_PID}"
 cp "/tmp/${DEST_FN}" "/var/www/profiling/${DEST_FN}"
