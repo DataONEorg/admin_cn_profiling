@@ -3,7 +3,7 @@
 SPATH=$(dirname ${0})
 DEST_FN="prof_object_100.svg"
 PID_FILE="${SPATH}/iso_pangaea_pids.txt"
-BASE_URL="https://cn-unm-1.dataone.org/cn/v2/object/"
+BASE_URL="https://cn-unm-1.dataone.org/cn/v2/views/metacatui/"
 PROFILER="./profiler.sh"
 TOMCAT_PID=$(sudo -u tomcat7 jps | grep "Bootstrap" | awk '{print $1}')
 echo "Start profiling jps id: ${TOMCAT_PID}"
