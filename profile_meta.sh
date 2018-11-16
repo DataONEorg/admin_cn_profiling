@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DEST_FN="../prof_meta_100.svg"
-PID_FILE="iso_pangaea_pids.txt"
+SPATH=$(dirname ${0})
+DEST_FN="prof_meta_100.svg"
+PID_FILE="${SPATH}/iso_pangaea_pids.txt"
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/meta/"
 PROFILER="./profiler.sh"
 TOMCAT_PID=$(sudo -u tomcat7 jps | grep "Bootstrap" | awk '{print $1}')
