@@ -7,5 +7,8 @@ Scripts etc for profiling CNs.
 
 Profiler: https://github.com/jvm-profiling-tools/async-profiler
 
-1. set the kernel flags needed
-2. 
+PIDS:
+
+```
+d1listobjects -C 100 -I -F "http://www.isotc211.org/2005/gmd-pangaea" > iso_pangaea_pids.txt
+```
