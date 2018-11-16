@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEST_FN="prof_object_100.svg"
+DEST_FN="../prof_object_100.svg"
 PID_FILE="iso_pangaea_pids.txt"
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/object/"
 PROFILER="./profiler.sh"
