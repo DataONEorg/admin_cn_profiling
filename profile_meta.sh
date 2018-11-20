@@ -4,8 +4,9 @@
 # Run this from the same folder as "profiler.sh"
 #
 TSTAMP=$(date +%Y-%m-%dT%H:%M:%S%z)
+TBRIEF=$(date +%Y%m%dT%H%M)
 SPATH=$(dirname ${0})
-DEST_FN="prof_meta_100.svg"
+DEST_FN="${TBRIEF}_prof_meta_100.svg"
 PID_FILE="${SPATH}/iso_pangaea_pids.txt"
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/meta/"
 PROFILER="./profiler.sh"
