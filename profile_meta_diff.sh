@@ -6,7 +6,7 @@
 TSTAMP=$(date +%Y-%m-%dT%H:%M:%S%z)
 TBRIEF=$(date +%Y%m%dT%H%M)
 SPATH=$(dirname ${0})
-DEST_FN="${TBRIEF}_prof_meta_100"
+DEST_FN="${TBRIEF}_prof_meta_100_diff"
 PID_FILE="${SPATH}/iso_pangaea_pids.txt"
 BASE_URL="https://cn-unm-1.dataone.org/cn/v2/meta/"
 PROFILER="./profiler.sh"
@@ -21,7 +21,7 @@ cat ${PID_FILE} | while read PID; do
   echo ${URL}
   curl -s ${URL}
 done
-TDELTA=$((($(date +%s%N) - TSTART)/1000000))
+TDELTA_A=$((($(date +%s%N) - TSTART)/1000000))
 sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}.A.out" -o collapsed ${TOMCAT_PID}
 echo "Done profiling jps id: ${TOMCAT_PID}"
 
@@ -34,20 +34,16 @@ cat ${PID_FILE} | while read PID; do
   echo ${URL}
   curl -s ${URL}
 done
-TDELTA=$((($(date +%s%N) - TSTART)/1000000))
+TDELTA_B=$((($(date +%s%N) - TSTART)/1000000))
 sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}.B.out" -o collapsed ${TOMCAT_PID}
 echo "Done profiling jps id: ${TOMCAT_PID}"
 
 # Compute deltas
-FG="${SPATH}/FlameGraph/flamegraph.pl"
+FG="${SPATH}/FlameGraph/flamegraph.pl --title 'diff getSystemMetadata runs A=${TDELTA_A} B=${TDELTA_B} msec at ${TSTAMP}'"
 FGDIFF="${SPATH}/FlameGraph/difffolded.pl"
 
 ${FGDIFF} "/tmp/${DEST_FN}.A.out" "/tmp/${DEST_FN}.B.out" | ${FG} > "/tmp/${DEST_FN}.svg"
 cp "/tmp/${DEST_FN}.svg" "/var/www/profiling/${DEST_FN}.svg"
-#sudo -u tomcat7 rm "/tmp/${DEST_FN}.svg"
-#sudo -u tomcat7 rm "/tmp/${DEST_FN}.A.out"
-#sudo -u tomcat7 rm "/tmp/${DEST_FN}.B.put"
-
-
-
---title "getSystemMetadata (${TDELTA} msec) at ${TSTAMP}" 
+sudo -u tomcat7 rm "/tmp/${DEST_FN}.svg"
+sudo -u tomcat7 rm "/tmp/${DEST_FN}.A.out"
+sudo -u tomcat7 rm "/tmp/${DEST_FN}.B.put"
