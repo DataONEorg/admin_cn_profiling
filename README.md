@@ -7,7 +7,9 @@ Scripts etc for profiling CNs.
 
 These scripts make use of Async-Profiler: https://github.com/jvm-profiling-tools/async-profiler
 
-On the system to be profiled, follow the kernel config flag setting steps described in async-profiler. Then setup the profiler:
+On the system to be profiled, follow the kernel config flag setting steps described in async-profiler. Note that this does not work on the VMs running at UCSB because of the shared kernel virtualization in use there.
+
+Then setup the profiler:
 
 ```
 mkdir ~/profiling
@@ -64,3 +66,4 @@ PIDS:
 ```
 d1listobjects -C 100 -I -F "http://www.isotc211.org/2005/gmd-pangaea" > iso_pangaea_pids.txt
 ```
+
