@@ -39,11 +39,12 @@ sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}.B.out" -o collapsed ${TOMCA
 echo "Done profiling jps id: ${TOMCAT_PID}"
 
 # Compute deltas
-FG="${SPATH}/FlameGraph/flamegraph.pl --title 'diff getSystemMetadata runs A=${TDELTA_A} B=${TDELTA_B} msec at ${TSTAMP}'"
+FG="${SPATH}/FlameGraph/flamegraph.pl"
+FG_TITLE="delta getSystemMetadata runs A=${TDELTA_A} B=${TDELTA_B} msec at ${TSTAMP}"
 FGDIFF="${SPATH}/FlameGraph/difffolded.pl"
 
-${FGDIFF} "/tmp/${DEST_FN}.A.out" "/tmp/${DEST_FN}.B.out" | ${FG} > "/tmp/${DEST_FN}.svg"
+${FGDIFF} "/tmp/${DEST_FN}.A.out" "/tmp/${DEST_FN}.B.out" | ${FG} --title "${FG_TITLE}"> "/tmp/${DEST_FN}.svg"
 cp "/tmp/${DEST_FN}.svg" "/var/www/profiling/${DEST_FN}.svg"
-sudo -u tomcat7 rm "/tmp/${DEST_FN}.svg"
-sudo -u tomcat7 rm "/tmp/${DEST_FN}.A.out"
-sudo -u tomcat7 rm "/tmp/${DEST_FN}.B.put"
+#sudo -u tomcat7 rm "/tmp/${DEST_FN}.svg"
+#sudo -u tomcat7 rm "/tmp/${DEST_FN}.A.out"
+#sudo -u tomcat7 rm "/tmp/${DEST_FN}.B.put"
