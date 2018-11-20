@@ -12,12 +12,15 @@ PROFILER="./profiler.sh"
 TOMCAT_PID=$(sudo -u tomcat7 jps | grep "Bootstrap" | awk '{print $1}')
 echo "Start profiling jps id: ${TOMCAT_PID}"
 sudo -u tomcat7 ${PROFILER} start -f "/tmp/${DEST_FN}" ${TOMCAT_PID}
+TSTART=$(date +%s)
 cat ${PID_FILE} | while read PID; do
   URL="${BASE_URL}${PID}"
   echo ${URL}
   curl -s ${URL}
 done
-sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "getSystemMetadata ${TSTAMP}" ${TOMCAT_PID}
+TEND=$(date +%s)
+TDELTA=$((TEND-TSTART))
+sudo -u tomcat7 ${PROFILER} stop -f "/tmp/${DEST_FN}" --title "getSystemMetadata (${TDELTA} msec) at ${TSTAMP}" ${TOMCAT_PID}
 echo "Done profiling jps id: ${TOMCAT_PID}"
 cp "/tmp/${DEST_FN}" "/var/www/profiling/${DEST_FN}"
 sudo -u tomcat7 rm "/tmp/${DEST_FN}"
